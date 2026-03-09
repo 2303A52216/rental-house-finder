@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Owner Dashboard</h2>
+
+<a href="/add_house"><button>Add House</button></a>
+
+{% for h in houses %}
+
+<div class="house">
+
+{{h[1]}} | ₹{{h[2]}} | {{h[5]}}
+
+<br>
+
+<a href="/delete/{{h[0]}}">
+<button>Delete</button>
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

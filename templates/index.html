@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="nav">
+<h2>🏠 Rental Finder</h2>
+</div>
+
+<div class="container">
+
+<h3>Find houses near you</h3>
+
+<button onclick="findHouses()">Find Nearby Houses</button>
+
+<br><br>
+
+<a href="/dashboard"><button>Owner Dashboard</button></a>
+
+</div>
+
+<script>
+
+navigator.geolocation.getCurrentPosition(function(pos){
+
+let lat = pos.coords.latitude
+let lon = pos.coords.longitude
+
+window.location = "/houses?lat=" + lat + "&lon=" + lon
+
+})
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Nearby Houses</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+
+#map{
+height:350px;
+margin-top:20px;
+border-radius:10px;
+}
+
+.house{
+background:white;
+padding:18px;
+margin-top:15px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.house h3{
+margin:0;
+color:#333;
+}
+
+.empty{
+margin-top:30px;
+padding:20px;
+background:#fff3cd;
+border-radius:10px;
+text-align:center;
+}
+
+.filter{
+margin-bottom:20px;
+}
+
+.filter select,
+.filter input{
+padding:8px;
+margin-right:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+padding:8px 15px;
+border:none;
+background:#ff7a18;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff5e00;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🏠 Nearby Rental Houses</h2>
+
+<div class="filter">
+
+<form method="get" action="/houses">
+
+<input type="hidden" name="lat" value="{{ user_lat }}">
+<input type="hidden" name="lon" value="{{ user_lon }}">
+
+<select name="bhk">
+<option value="">All BHK</option>
+<option value="1BHK">1BHK</option>
+<option value="2BHK">2BHK</option>
+<option value="3BHK">3BHK</option>
+</select>
+
+<input type="number" name="price" placeholder="Max price">
+
+<button type="submit">Filter</button>
+
+</form>
+
+</div>
+
+<div id="map"></div>
+
+<br>
+
+{% if houses %}
+
+{% for h,d in houses %}
+
+<div class="house">
+
+<h3>{{ h[1] }}</h3>
+
+<p>💰 Price : ₹{{ h[2] }}</p>
+
+<p>📍 Address : {{ h[5] }}</p>
+
+<p>👤 Owner : {{ h[3] }}</p>
+
+<p>📞 Phone : {{ h[4] }}</p>
+
+<p>📏 Distance : {{ "%.2f"|format(d) }} km</p>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty">
+
+<h3>⚠ No houses available near your location</h3>
+
+<p>Be the first person to add a rental house in this area.</p>
+
+<br>
+
+<a href="/add_house">
+<button style="background:#28a745;">
+🏠 Add Rental House Near You
+</button>
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+<script>
+
+var userLat = {{ user_lat }};
+var userLon = {{ user_lon }};
+
+var map = L.map('map').setView([userLat,userLon],13);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'OpenStreetMap'
+}).addTo(map);
+
+L.marker([userLat,userLon])
+.addTo(map)
+.bindPopup("📍 You are here")
+.openPopup();
+
+{% for h,d in houses %}
+
+L.marker([{{h[6]}},{{h[7]}}])
+.addTo(map)
+.bindPopup(
+"<b>{{h[1]}}</b><br>"+
+"Price: ₹{{h[2]}}<br>"+
+"Address: {{h[5]}}<br>"+
+"Owner: {{h[3]}}<br>"+
+"Phone: {{h[4]}}"
+);
+
+{% endfor %}
+
+</script>
+
+</body>
+</html>

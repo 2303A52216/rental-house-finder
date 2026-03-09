@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Add House</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+#map{
+height:400px;
+margin-top:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Add Rental House</h2>
+
+<form method="post">
+
+<label>House Type</label>
+<br>
+<select name="type">
+<option>1BHK</option>
+<option>2BHK</option>
+<option>3BHK</option>
+</select>
+
+<br><br>
+
+<label>Price</label>
+<br>
+<input type="number" name="price">
+
+<br><br>
+
+<label>Owner Name</label>
+<br>
+<input name="owner">
+
+<br><br>
+
+<label>Phone</label>
+<br>
+<input name="phone">
+
+<br><br>
+
+<label>Address</label>
+<br>
+<input name="address">
+
+<br><br>
+
+<label>Latitude</label>
+<br>
+<input id="lat" name="latitude" readonly>
+
+<br><br>
+
+<label>Longitude</label>
+<br>
+<input id="lon" name="longitude" readonly>
+
+<br><br>
+
+<p>📍 Click the map to set house location</p>
+
+<div id="map"></div>
+
+<br>
+
+<button type="submit">Add House</button>
+
+</form>
+
+</div>
+
+
+<script>
+
+var map = L.map('map').setView([20,78],5);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'OpenStreetMap'
+}).addTo(map);
+
+var marker;
+
+map.on('click',function(e){
+
+var lat = e.latlng.lat;
+var lon = e.latlng.lng;
+
+document.getElementById("lat").value = lat;
+document.getElementById("lon").value = lon;
+
+if(marker){
+map.removeLayer(marker);
+}
+
+marker = L.marker([lat,lon]).addTo(map);
+
+});
+
+</script>
+
+</body>
+</html>
