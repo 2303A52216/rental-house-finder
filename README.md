@@ -8,6 +8,8 @@ A location-based rental house finder built using Flask and Leaflet maps.
 - Calculates distance from user
 - Filter houses by BHK and price
 - Owner can add rental houses
+- Auto location detection added
+- Owner/User dashboard separation
 
 ## Tech Stack
 - Python (Flask)
