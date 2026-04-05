@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Getting Location</title>
+</head>
+<body>
+
+<h3>Getting your location...</h3>
+
+<script>
+navigator.geolocation.getCurrentPosition(function(pos){
+    let lat = pos.coords.latitude;
+    let lon = pos.coords.longitude;
+
+    window.location = "/houses?lat=" + lat + "&lon=" + lon;
+});
+</script>
+
+</body>
+</html>

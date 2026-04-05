@@ -6,34 +6,28 @@
 
 <body>
 
-<div class="nav">
-<h2>🏠 Rental Finder</h2>
-</div>
-
 <div class="container">
 
-<h3>Find houses near you</h3>
+<h2>Rental Finder</h2>
 
-<button onclick="findHouses()">Find Nearby Houses</button>
+<h3>Welcome 👋</h3>
+<p>Please login or register to continue</p>
 
-<br><br>
+<br>
 
-<a href="/dashboard"><button>Owner Dashboard</button></a>
+<a href="/login"><button>Login</button></a>
+
+<a href="/signup"><button>Register</button></a>
 
 </div>
-
 <script>
-
-navigator.geolocation.getCurrentPosition(function(pos){
-
-let lat = pos.coords.latitude
-let lon = pos.coords.longitude
-
-window.location = "/houses?lat=" + lat + "&lon=" + lon
-
-})
-
+function findHouses(){
+    navigator.geolocation.getCurrentPosition(function(pos){
+        let lat = pos.coords.latitude
+        let lon = pos.coords.longitude
+        window.location = "/houses?lat=" + lat + "&lon=" + lon
+    })
+}
 </script>
-
 </body>
 </html>
