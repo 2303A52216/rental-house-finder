@@ -23,5 +23,4 @@ A location-based rental house finder built using Flask and Leaflet maps.
 3. Houses within nearby distance are displayed
 4. Users can view house details and contact owners
 
-## Author
-Ashwitha
+
